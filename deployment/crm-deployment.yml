@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crm
+  template:
+    metadata:
+      labels:
+        app: crm
+    spec:
+      containers:
+      - name: crm
+        image: php:7.2-apache
+        volumeMounts:
+        - name: local-path-volume
+          mountPath: /var/www/html
+      volumes:
+      - name: local-path-volume
+        hostPath:
+          path: /project/crm/
